@@ -1,0 +1,11 @@
+<?php
+$con1=mysql_connect("localhost", "root", "");
+if (!$con1) {
+    die("koneksi gagal" . mysql_connect_error());
+}
+
+$con2=mysql_select_db("tps");
+if(!$con2){
+	die("Gagal membuka database".mysql_error());
+	}
+?>

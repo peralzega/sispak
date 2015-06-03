@@ -1,0 +1,46 @@
+<?php
+
+$tahun=date("Y");
+
+$li_2="SELECT * FROM penjualan p WHERE p.tahun = $tahun";
+$hasil_2=mysql_query($li_2);
+$hasil_21=mysql_fetch_array($hasil_2);
+
+$id_penjualan2=$hasil_21['id_penjualan'];
+
+$la_2="select * from (select e.id_brownies, sum(e.jumlah) as total from (SELECT a.tahun, b.id_penjualan, b.id_brownies, b.jumlah
+FROM rincian_penjualan b
+inner JOIN penjualan a
+ON a.id_penjualan=b.id_penjualan
+ORDER BY b.id_penjualan) e where e.tahun=$tahun group by e.id_brownies) f order by f.total desc limit 3";
+$hasil_22=mysql_query($la_2);
+
+$i=1;
+while($hasil_23 = mysql_fetch_array($hasil_22)){
+$id_brownies[$i]=$hasil_23['id_brownies'];
+$jumlah_brownis_t[$i]=$hasil_23['total'];
+$i++;
+}
+
+$lo_21="SELECT * FROM brownies b WHERE b.id_brownies=$id_brownies[1]";
+$lo_22="SELECT * FROM brownies b WHERE b.id_brownies=$id_brownies[2]";
+$lo_23="SELECT * FROM brownies b WHERE b.id_brownies=$id_brownies[3]";
+
+$brownies_21=mysql_query($lo_21);
+$brownies_21a=mysql_fetch_array($brownies_21);
+$namay_brownies1=$brownies_21a['nama_brownies'];
+$gambary1=$brownies_21a['gambar'];
+$hargay1=$brownies_21a['harga'];
+
+$brownies_22=mysql_query($lo_22);
+$brownies_22a=mysql_fetch_array($brownies_22);
+$namay_brownies2=$brownies_22a['nama_brownies'];
+$gambary2=$brownies_22a['gambar'];
+$hargay2=$brownies_22a['harga'];
+
+$brownies_23=mysql_query($lo_23);
+$brownies_23a=mysql_fetch_array($brownies_23);
+$namay_brownies3=$brownies_23a['nama_brownies'];
+$gambary3=$brownies_23a['gambar'];
+$hargay3=$brownies_23a['harga'];
+?>
